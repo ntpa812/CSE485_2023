@@ -14,46 +14,33 @@
         // Check if the form submission is valid (POST request and category_name is set)
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category_name'])) {
             $category_name = trim($_POST['category_name']); // Trim the input to avoid leading/trailing spaces
-        
+
             if (!empty($category_name)) {
-                // Step 1: Get the highest category ID from the 'theloai' table
-                $sql_max_id = "SELECT MAX(ma_tloai) AS max_id FROM theloai";
-                $result = $conn->query($sql_max_id);
-        
-                if ($result && $row = $result->fetch_assoc()) {
-                    $new_category_id = $row['max_id'] + 1; // Step 2: Increase max ID by 1
-        
-                    // Step 3: Insert new category with new category ID
-                    $sql = "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES (?, ?)";
-        
-                    // Use prepared statements to avoid SQL injection
-                    if ($stmt = $conn->prepare($sql)) {
-                        $stmt->bind_param("is", $new_category_id, $category_name);
-        
-                        // Execute the prepared statement
-                        if ($stmt->execute()) {
-                            // Redirect to the category list page with a success message
-                            header("Location: category.php?msg=success");
-                            exit();
-                        } else {
-                            // If there is an error, display it
-                            echo "Error: " . $stmt->error;
-                        }
+                // Prepare SQL statement to insert the new category into the 'theloai' table
+                $sql = "INSERT INTO theloai (ten_tloai) VALUES (?)";
+            
+                // Use prepared statements to avoid SQL injection
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->bind_param("s", $category_name);
+                
+                    // Execute the prepared statement
+                    if ($stmt->execute()) {
+                        // Redirect to the category list page with a success message
+                        header("Location: category.php?msg=success");
+                        exit();
                     } else {
-                        echo "Error preparing statement: " . $conn->error;
+                        // If there is an error, display it
+                        echo "Error: " . $stmt->error;
                     }
                 } else {
-                    echo "Error retrieving the highest category ID.";
+                    echo "Error preparing statement: " . $conn->error;
                 }
             } else {
                 // Handle case when category name is empty
                 header("Location: add_category.php?msg=empty");
                 exit();
             }
-        } else {
-            echo "Invalid form submission.";
         }
-        
 
         // Close the database connection
         $conn->close();

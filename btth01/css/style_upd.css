@@ -14,6 +14,7 @@ HTML {
 
 .search-bar {
     border-color: rgb(75, 237, 237);
+    color: white !important;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .show>.nav-link .search-bar {
@@ -31,8 +32,25 @@ HTML {
     flex:auto;
 }
 
-footer {
-    color:turquoise;
-    background-color:#0D1226;
+.nav-link {
+    color:rgb(56, 103, 103);
 }
 
+.nav-link:hover {
+    color:rgb(75, 237, 237);
+}
+
+.search-bar::placeholder {
+    color: white; 
+    opacity: 0.5; 
+}
+
+a.text-decoration-none {
+    color:rgb(56, 103, 103);
+}
+
+footer {
+    background-color:#0D1226;
+    position:fixed;
+    color:rgb(117, 202, 202);
+}
