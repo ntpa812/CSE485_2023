@@ -43,15 +43,15 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <main class="container-fluid mt-3">
-        <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
-        <div class="row">
+    <main class="container-fluid nav-top-song">
+        <h3 class="text-center text-uppercase mb-3 main-color nav-top-song">TOP bài hát yêu thích</h3>
+        <div class="row main-color p-3">
             <div class="col-sm-3">
                 <div class="card mb-2" style="width: 100%;">
                     <img src="images/songs/cayvagio.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="detail.php" class="text-decoration-none">Cây, lá và gió</a>
+                            <a href="detail.php?id=12" class="text-decoration-none">Cây, lá và gió</a>
                         </h5>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <img src="images/songs/csmt.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Cuộc sống mến thương</a>
+                            <a href="detail.php?id=11" class="text-decoration-none">Cuộc sống mến thương</a>
                         </h5>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <img src="images/songs//longme.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Lòng mẹ</a>
+                            <a href="detail.php?id=1" class="text-decoration-none">Lòng mẹ</a>
                         </h5>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <img src="images/songs/phoipha.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="" class="text-decoration-none">Phôi pha</a>
+                            <a href="detail.php?id=3" class="text-decoration-none">Phôi pha</a>
                         </h5>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     <img src="images/songs/noitinhyeubatdau.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center my-title">
-                            <a href="" class="text-decoration-none">Nơi tình yêu bắt đầu</a>
+                            <a href="detail.php?id=8" class="text-decoration-none">Nơi tình yêu bắt đầu</a>
                         </h5>
                     </div>
                 </div>
