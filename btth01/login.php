@@ -10,67 +10,82 @@
     <link rel="stylesheet" href="css/style_login.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style_upd.css">
-
 </head>
+
 <body>
     <?php
-        include 'db.php'; // Kết nối CSDL
+    session_start(); // Bắt đầu phiên
+    include 'db.php'; // Kết nối CSDL
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-        
-            // Truy vấn để tìm user theo username
-            $sql = "SELECT * FROM users WHERE username = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        
-            if ($result->num_rows > 0) {
-                $user = $result->fetch_assoc();
-                // So sánh mật khẩu (đã được mã hóa)
-                if (password_verify($password, $user['password'])) {
-                    echo "<script>alert('Đăng nhập thành công!');</script>";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+
+        // Truy vấn để tìm user theo username
+        $sql = "SELECT * FROM Users WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die('Lỗi truy vấn SQL: ' . htmlspecialchars($conn->error));
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+
+            // So sánh mật khẩu (đã được mã hóa)
+            if (password_verify($password, $user['password'])) {
+                // Đăng nhập thành công
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+
+                // Chuyển hướng dựa trên vai trò
+                if ($user['role'] === 'admin') {
+                    header("Location: admin/index.php"); // Chuyển hướng đến trang admin
                 } else {
-                    echo "<script>alert('Sai mật khẩu!');</script>";
+                    header("Location: index.php"); // Chuyển hướng đến trang chủ
                 }
+                exit();
             } else {
-                echo "<script>alert('Không tìm thấy người dùng!');</script>";
+                echo "<script>alert('Sai mật khẩu!');</script>";
             }
-        
-            $stmt->close();
+        } else {
+            echo "<script>alert('Không tìm thấy người dùng!');</script>";
         }
 
-        $conn->close();
+        $stmt->close();
+    }
+
+    $conn->close();
     ?>
+
+
     <?php
         // Nhúng nội dung của header
         include 'header.php';
     ?>
     <main class="container mt-5 mb-5">
-        <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="d-flex justify-content-center h-100">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Sign In</h3>
-                        <div class="d-flex justify-content-end social_icon">
-                            <span><i class="fab fa-facebook-square"></i></span>
-                            <span><i class="fab fa-google-plus-square"></i></span>
-                            <span><i class="fab fa-twitter-square"></i></span>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign In</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <span><i class="fab fa-facebook-square"></i></span>
+                        <span><i class="fab fa-google-plus-square"></i></span>
+                        <span><i class="fab fa-twitter-square"></i></span>
                     </div>
-                    <div class="card-body">
+                </div>
+                <div class="card-body">
                     <form method="POST" action="login.php">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                            <!-- Add name="username" to the input field -->
                             <input type="text" class="form-control" name="username" placeholder="username" required>
                         </div>
                         
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                            <!-- Add name="password" to the input field -->
                             <input type="password" class="form-control" name="password" placeholder="password" required>
                         </div>
                         
@@ -81,17 +96,16 @@
                             <input type="submit" value="Login" class="btn float-end login_btn">
                         </div>
                     </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center ">
+                        Don't have an account?<a href="#" class="text-warning-1 text-decoration-none">Sign Up</a>
                     </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center ">
-                            Don't have an account?<a href="#" class="text-warning-1 text-decoration-none">Sign Up</a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="text-warning-1 text-decoration-none">Forgot your password?</a>
-                        </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="#" class="text-warning-1 text-decoration-none">Forgot your password?</a>
                     </div>
                 </div>
-
+            </div>
         </div>
     </main>
     <?php

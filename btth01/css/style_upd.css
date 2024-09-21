@@ -43,7 +43,19 @@ HTML {
     opacity: 0.5; 
 }
 
+.form-control:focus {
+    color: black !important;
+    background-color: var(--bs-form-control-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+
 a.text-decoration-none {
+    color:rgb(56, 103, 103);
+}
+
+.search-title {
     color:rgb(56, 103, 103);
 }
 

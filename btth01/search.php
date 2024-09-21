@@ -36,7 +36,7 @@
         }
     ?>
     <main class="container-fluid mt-3">
-        <h3 class="text-center text-uppercase mb-3 text-primary">Kết quả tìm kiếm: "<?php echo htmlspecialchars($searchQuery); ?>"</h3>
+        <h3 class="text-center text-uppercase mb-3 search-title">Kết quả tìm kiếm: "<?php echo htmlspecialchars($searchQuery); ?>"</h3>
         <div class="row">
             <?php
                 if (mysqli_num_rows($result) > 0) {
