@@ -28,9 +28,7 @@ HTML {
     padding-top: 1rem;
 }
 
-.card {
-    flex:auto;
-}
+
 
 .nav-link {
     color:rgb(56, 103, 103);
@@ -47,6 +45,11 @@ HTML {
 
 a.text-decoration-none {
     color:rgb(56, 103, 103);
+}
+
+.text-warning-1 {
+    color: turquoise !important;
+    opacity: 1;
 }
 
 footer {

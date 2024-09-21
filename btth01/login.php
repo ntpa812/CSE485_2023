@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style_login.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_upd.css">
+
 </head>
 <body>
     <?php
@@ -82,10 +84,10 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center ">
-                            Don't have an account?<a href="#" class="text-warning text-decoration-none">Sign Up</a>
+                            Don't have an account?<a href="#" class="text-warning-1 text-decoration-none">Sign Up</a>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <a href="#" class="text-warning text-decoration-none">Forgot your password?</a>
+                            <a href="#" class="text-warning-1 text-decoration-none">Forgot your password?</a>
                         </div>
                     </div>
                 </div>
