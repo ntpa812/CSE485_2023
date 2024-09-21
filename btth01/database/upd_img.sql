@@ -5,9 +5,12 @@ UPDATE baiviet SET hinhanh = 'quehuong.jpg' WHERE ma_bviet = 4;
 UPDATE baiviet SET hinhanh = 'datnuoc.jpg' WHERE ma_bviet = 5;
 UPDATE baiviet SET hinhanh = 'hardrock.jpg' WHERE ma_bviet = 6;
 UPDATE baiviet SET hinhanh = 'TheUnforgiven.jpg' WHERE ma_bviet = 7;
-
-
-
+UPDATE baiviet SET hinhanh = 'noitinhyeubatdau.jpg' WHERE ma_bviet = 8;
+UPDATE baiviet SET hinhanh = 'loveme.jpg' WHERE ma_bviet = 9;
+UPDATE baiviet SET hinhanh = 'stronger.jpg' WHERE ma_bviet = 10;
+UPDATE baiviet SET hinhanh = 'Ôi Cuộc Sống Mến Thương.jpg' WHERE ma_bviet = 11;
 UPDATE baiviet SET hinhanh = 'cayvagio.jpg' WHERE ma_bviet = 12;
+UPDATE baiviet SET hinhanh = 'nguoithay.jpg' WHERE ma_bviet = 13;
+
 
 
