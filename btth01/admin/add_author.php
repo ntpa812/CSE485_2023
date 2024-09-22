@@ -13,30 +13,50 @@
     <?php include 'header.php'; ?>
     <?php
         include '../db.php';  // Kết nối đến cơ sở dữ liệu
-
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $ten_tgia = $_POST['ten_tgia'];
-            $hinh_tgia = $_POST['hinh_tgia'];
+            $ten_tgia = trim($_POST['ten_tgia']);  // Xử lý tên tác giả
+            $hinh_tgia = $_POST['hinh_tgia'];  // Hình tác giả
         
-            if ($ten_tgia != "") {
-                // Câu lệnh SQL để thêm tác giả
-                $sql = "INSERT INTO tacgia (ten_tgia, hinh_tgia) VALUES ('$ten_tgia', '$hinh_tgia')";
-
-                if (mysqli_query($conn, $sql)) {
-                    // Redirect to the author page after successful addition
-                    header("Location: author.php?msg=success");
-                    exit();  // Make sure to exit to prevent further script execution
+            if (!empty($ten_tgia)) {
+                // Truy vấn mã tác giả lớn nhất hiện tại
+                $sql_max_id = "SELECT MAX(ma_tgia) AS max_id FROM tacgia";
+                $result = mysqli_query($conn, $sql_max_id);
+                $row = mysqli_fetch_assoc($result);
+                $max_id = $row['max_id'];
+            
+                // Nếu không có tác giả nào thì bắt đầu từ 1, nếu có thì mã mới sẽ là max_id + 1
+                $new_author_id = ($max_id !== null) ? $max_id + 1 : 1;
+            
+                // Câu lệnh SQL để thêm tác giả mới với mã mới
+                $sql = "INSERT INTO tacgia (ma_tgia, ten_tgia, hinh_tgia) VALUES (?, ?, ?)";
+            
+                // Sử dụng prepared statement để tránh SQL injection
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->bind_param("iss", $new_author_id, $ten_tgia, $hinh_tgia);
+                
+                    // Thực thi câu lệnh SQL
+                    if ($stmt->execute()) {
+                        // Chuyển hướng về trang danh sách tác giả sau khi thêm thành công
+                        header("Location: author.php?msg=success");
+                        exit();
+                    } else {
+                        echo "Lỗi: " . $stmt->error;
+                    }
                 } else {
-                    echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
+                    echo "Lỗi khi chuẩn bị câu lệnh: " . $conn->error;
                 }
             } else {
-                header("Location: add_author.php?msg=empty");  // Redirect with an error message if the name is empty
+                // Nếu tên tác giả rỗng, chuyển hướng với thông báo lỗi
+                header("Location: add_author.php?msg=empty");
                 exit();
             }
         }
-
+    
+        // Đóng kết nối cơ sở dữ liệu
         mysqli_close($conn);
     ?>
+    
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">
