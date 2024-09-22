@@ -9,54 +9,52 @@
 <body>
     <?php include 'header.php'; ?>
     <?php
-        include '../db.php'; // Include your database connection
-
-        // Check if the form submission is valid (POST request and category_name is set)
+        include '../db.php'; // Kết nối cơ sở dữ liệu
+    
+        // Kiểm tra nếu form được gửi và có tên thể loại
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category_name'])) {
-            $category_name = trim($_POST['category_name']); // Trim the input to avoid leading/trailing spaces
-
+            $category_name = trim($_POST['category_name']); // Xử lý tên thể loại
+        
             if (!empty($category_name)) {
-                // Lấy mã thể loại cao nhất hiện tại từ bảng 'theloai'
-                $sql_get_max_id = "SELECT MAX(ma_tloai) AS max_id FROM theloai";
-                $result = $conn->query($sql_get_max_id);
-
-                if ($result && $row = $result->fetch_assoc()) {
-                    $max_id = $row['max_id'] ? $row['max_id'] : 0; // Lấy mã cao nhất, nếu không có thì đặt về 0
-                    $new_id = $max_id + 1; // Tăng mã lên 1 để có mã mới
-                } else {
-                    $new_id = 1; // Nếu không có kết quả nào, mã mới sẽ là 1
-                }
-
-                // Prepare SQL statement to insert the new category with new id into the 'theloai' table
-                $sql_insert = "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES (?, ?)";
-
-                // Use prepared statements to avoid SQL injection
-                if ($stmt = $conn->prepare($sql_insert)) {
-                    $stmt->bind_param("is", $new_id, $category_name); // Bind both new id and category name
-
-                    // Execute the prepared statement
+                // Truy vấn lấy mã thể loại lớn nhất hiện tại
+                $sql_max_id = "SELECT MAX(ma_tloai) AS max_id FROM theloai";
+                $result = mysqli_query($conn, $sql_max_id);
+                $row = mysqli_fetch_assoc($result);
+                $max_id = $row['max_id'];
+            
+                // Nếu cơ sở dữ liệu trống thì gán mã thể loại là 1, nếu không thì tăng mã thể loại lên 1
+                $new_category_id = ($max_id !== null) ? $max_id + 1 : 1;
+            
+                // Chuẩn bị câu lệnh SQL để thêm thể loại mới với mã lớn nhất + 1
+                $sql = "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES (?, ?)";
+            
+                // Sử dụng prepared statements để tránh SQL injection
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->bind_param("is", $new_category_id, $category_name); // Gán giá trị mã và tên thể loại
+                
+                    // Thực thi câu lệnh SQL
                     if ($stmt->execute()) {
-                        // Redirect to the category list page with a success message
+                        // Chuyển hướng về trang danh sách thể loại với thông báo thành công
                         header("Location: category.php?msg=success");
                         exit();
                     } else {
-                        // If there is an error, display it
+                        // Hiển thị lỗi nếu có
                         echo "Error: " . $stmt->error;
                     }
                 } else {
                     echo "Error preparing statement: " . $conn->error;
                 }
             } else {
-                // Handle case when category name is empty
+                // Xử lý khi tên thể loại rỗng
                 header("Location: add_category.php?msg=empty");
                 exit();
             }
         }
-
-        // Close the database connection
-        $conn->close();
-        ?>
-
+    
+        // Đóng kết nối cơ sở dữ liệu
+        mysqli_close($conn);
+    ?>
+    
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">

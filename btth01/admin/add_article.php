@@ -15,14 +15,14 @@
         include '../db.php';  // Kết nối đến cơ sở dữ liệu
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $tieude = $_POST['tieude'];
-            $ten_bhat = $_POST['ten_bhat'];
-            $tomtat = $_POST['tomtat'];
-            $noidung = $_POST['noidung'];
+            $tieude = trim($_POST['tieude']);  // Xử lý tiêu đề
+            $ten_bhat = trim($_POST['ten_bhat']);  // Tên bài hát
+            $tomtat = trim($_POST['tomtat']);  // Tóm tắt bài viết
+            $noidung = $_POST['noidung'];  // Nội dung có thể trống
 
-            // Kiểm tra nếu các trường không trống (trừ noidung)
-            if ($tieude != "" && $ten_bhat != "" && $tomtat != "") {
-                
+            // Kiểm tra nếu các trường tiêu đề, tên bài hát, và tóm tắt không trống
+            if (!empty($tieude) && !empty($ten_bhat) && !empty($tomtat)) {
+
                 // Truy vấn để lấy thông tin bài hát
                 $song_query = "SELECT * FROM baiviet WHERE ten_bhat = '$ten_bhat'";
                 $song_result = mysqli_query($conn, $song_query);
@@ -30,22 +30,39 @@
                 // Kiểm tra nếu bài hát tồn tại
                 if (mysqli_num_rows($song_result) > 0) {
                     $song = mysqli_fetch_assoc($song_result);
-                    
+
                     // Lấy tác giả và thể loại từ bài hát
                     $ma_tgia = $song['ma_tgia'];
                     $ma_tloai = $song['ma_tloai'];
                     $ngayviet = date('Y-m-d');  // Ngày viết tự động là ngày hiện tại
 
-                    // Câu lệnh SQL để thêm bài viết, cho phép nội dung có thể trống
-                    $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tgia, ma_tloai, tomtat, noidung, ngayviet) 
-                            VALUES ('$tieude', '$ten_bhat', '$ma_tgia', '$ma_tloai', '$tomtat', '$noidung', '$ngayviet')";
+                    // Truy vấn mã bài viết lớn nhất hiện tại
+                    $sql_max_id = "SELECT MAX(ma_bviet) AS max_id FROM baiviet";
+                    $result = mysqli_query($conn, $sql_max_id);
+                    $row = mysqli_fetch_assoc($result);
+                    $max_id = $row['max_id'];
 
-                    if (mysqli_query($conn, $sql)) {
-                        // Redirect to the article page after successful addition
-                        header("Location: article.php?msg=success");
-                        exit();  // Make sure to exit to prevent further script execution
+                    // Nếu không có bài viết nào, mã sẽ bắt đầu từ 1, nếu có thì mã mới là max_id + 1
+                    $new_article_id = ($max_id !== null) ? $max_id + 1 : 1;
+
+                    // Câu lệnh SQL để thêm bài viết mới
+                    $sql = "INSERT INTO baiviet (ma_bviet, tieude, ten_bhat, ma_tgia, ma_tloai, tomtat, noidung, ngayviet) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    // Sử dụng prepared statements để tránh SQL injection
+                    if ($stmt = $conn->prepare($sql)) {
+                        $stmt->bind_param("isssssss", $new_article_id, $tieude, $ten_bhat, $ma_tgia, $ma_tloai, $tomtat, $noidung, $ngayviet);
+
+                        // Thực thi câu lệnh SQL
+                        if ($stmt->execute()) {
+                            // Chuyển hướng về trang danh sách bài viết sau khi thêm thành công
+                            header("Location: article.php?msg=success");
+                            exit();
+                        } else {
+                            echo "Lỗi: " . $stmt->error;
+                        }
                     } else {
-                        echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
+                        echo "Lỗi khi chuẩn bị câu lệnh: " . $conn->error;
                     }
 
                 } else {
@@ -55,13 +72,15 @@
                 }
 
             } else {
-                header("Location: add_article.php?msg=empty");  // Redirect with an error message if required fields are empty
+                header("Location: add_article.php?msg=empty");  // Chuyển hướng với thông báo lỗi nếu các trường bắt buộc rỗng
                 exit();
             }
         }
 
+        // Đóng kết nối cơ sở dữ liệu
         mysqli_close($conn);
     ?>
+
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">
