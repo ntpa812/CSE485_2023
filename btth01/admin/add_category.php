@@ -16,13 +16,24 @@
             $category_name = trim($_POST['category_name']); // Trim the input to avoid leading/trailing spaces
 
             if (!empty($category_name)) {
-                // Prepare SQL statement to insert the new category into the 'theloai' table
-                $sql = "INSERT INTO theloai (ten_tloai) VALUES (?)";
-            
+                // Lấy mã thể loại cao nhất hiện tại từ bảng 'theloai'
+                $sql_get_max_id = "SELECT MAX(ma_tloai) AS max_id FROM theloai";
+                $result = $conn->query($sql_get_max_id);
+
+                if ($result && $row = $result->fetch_assoc()) {
+                    $max_id = $row['max_id'] ? $row['max_id'] : 0; // Lấy mã cao nhất, nếu không có thì đặt về 0
+                    $new_id = $max_id + 1; // Tăng mã lên 1 để có mã mới
+                } else {
+                    $new_id = 1; // Nếu không có kết quả nào, mã mới sẽ là 1
+                }
+
+                // Prepare SQL statement to insert the new category with new id into the 'theloai' table
+                $sql_insert = "INSERT INTO theloai (ma_tloai, ten_tloai) VALUES (?, ?)";
+
                 // Use prepared statements to avoid SQL injection
-                if ($stmt = $conn->prepare($sql)) {
-                    $stmt->bind_param("s", $category_name);
-                
+                if ($stmt = $conn->prepare($sql_insert)) {
+                    $stmt->bind_param("is", $new_id, $category_name); // Bind both new id and category name
+
                     // Execute the prepared statement
                     if ($stmt->execute()) {
                         // Redirect to the category list page with a success message
@@ -44,7 +55,8 @@
 
         // Close the database connection
         $conn->close();
-    ?>
+        ?>
+
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">
