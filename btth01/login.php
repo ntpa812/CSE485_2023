@@ -13,9 +13,37 @@
 </head>
 
 <body>
+        <?php
+        include 'db.php'; // Kết nối đến cơ sở dữ liệu
+
+        // Mã hóa mật khẩu cho từng người dùng
+        $users = [
+            ['id' => 1, 'password' => 'congngheweb'],
+            ['id' => 2, 'password' => 'thayhieudeptrai'],
+            ['id' => 3, 'password' => 'huhuhu'],
+            ['id' => 4, 'password' => 'nguyenminhhieu'],
+            ['id' => 5, 'password' => 'nguyenthiphuonganh']
+        ];
+
+        foreach ($users as $user) {
+            $hashedPassword = password_hash($user['password'], PASSWORD_DEFAULT);
+            $sql = "UPDATE Users SET password = ? WHERE user_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('si', $hashedPassword, $user['id']);
+            $stmt->execute();
+        }
+
+        //echo "Cập nhật mật khẩu thành công!";
+        ?>
+
     <?php
     session_start(); // Bắt đầu phiên
     include 'db.php'; // Kết nối CSDL
+
+    // Kiểm tra kết nối cơ sở dữ liệu
+    if ($conn->connect_error) {
+        die("Kết nối CSDL thất bại: " . $conn->connect_error);
+    }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = trim($_POST['username']);
@@ -24,17 +52,22 @@
         // Truy vấn để tìm user theo username
         $sql = "SELECT * FROM Users WHERE username = ?";
         $stmt = $conn->prepare($sql);
+        
         if ($stmt === false) {
-            die('Lỗi truy vấn SQL: ' . htmlspecialchars($conn->error));
+            die('Lỗi chuẩn bị truy vấn SQL: ' . htmlspecialchars($conn->error));
         }
+
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-
-            // So sánh mật khẩu (đã được mã hóa)
+            
+            // In ra mật khẩu mã hóa trong cơ sở dữ liệu (gỡ lỗi)
+            //echo "Mật khẩu mã hóa trong cơ sở dữ liệu: " . $user['password'] . "<br>";
+            
+            // Kiểm tra mật khẩu đã mã hóa
             if (password_verify($password, $user['password'])) {
                 // Đăng nhập thành công
                 $_SESSION['user_id'] = $user['user_id'];
@@ -49,6 +82,8 @@
                 }
                 exit();
             } else {
+                // Gỡ lỗi cho trường hợp mật khẩu không khớp
+                //echo "Mật khẩu không chính xác. Mật khẩu nhập: $password<br>";
                 echo "<script>alert('Sai mật khẩu!');</script>";
             }
         } else {
@@ -60,6 +95,7 @@
 
     $conn->close();
     ?>
+
 
 
     <?php
