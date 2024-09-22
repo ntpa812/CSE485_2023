@@ -37,7 +37,7 @@
                     </ul>
                     <form class="d-flex" role="search" method="GET" action="search.php">
                         <input class="form-control me-2 main-color search-bar" type="search" name="query" placeholder="Nội dung cần tìm" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Tìm</button>
+                        <button class="btn btn-outline-success btn-search" type="submit">Tìm</button>
                     </form>
                 </div>
             </div>
