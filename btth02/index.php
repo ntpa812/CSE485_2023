@@ -30,24 +30,3 @@ require_once($controllerPath);
 $myObj = new $controller();  //controller=home > new HomeController()
 $myObj->$action(); //action=index > index()
 ?>
-
-<!-- Routing -->
-<?php
-include_once '../db.php'; // Kết nối CSDL
-include_once '../controller/AdminController.php';
-
-$controller = new AdminController($conn);
-$controller->index();
-?>
-
-<?php
-// Lấy controller và action từ URL
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'author';
-$action = isset($_GET['action']) ? $_GET['action'] : 'list';
-
-// Include controller và gọi action tương ứng
-include 'controllers/' . ucfirst($controller) . 'Controller.php';
-$className = ucfirst($controller) . 'Controller';
-$controllerObj = new $className();
-$controllerObj->$action();
-?>

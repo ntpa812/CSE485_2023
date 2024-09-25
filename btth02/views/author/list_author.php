@@ -9,44 +9,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
 <body>
-    <?php 
-    include '../layout/header.php';
-    include '../configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
-    ?>
+    <?php include __DIR__.'/../layout/adminHeader.php'; ?>
     <main class="container mt-5 mb-5">
-        <div class="row">
-            <div class="col-sm">
-                <a href="index.php?controller=author&action=add" class="btn btn-success mb-3">Thêm mới</a>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tên tác giả</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        if ($authors && $authors->num_rows > 0) {
-                            while($row = $authors->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $row['ma_tgia'] . "</td>";
-                                echo "<td>" . $row['ten_tgia'] . "</td>";
-                                echo '<td><a href="index.php?controller=author&action=edit&ma_tgia=' . $row['ma_tgia'] . '"><i class="fa-solid fa-pen-to-square"></i></a></td>';
-                                echo '<td><a href="index.php?controller=author&action=delete&ma_tgia=' . $row['ma_tgia'] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa tác giả này?\')"><i class="fa-solid fa-trash"></i></a></td>';
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='4'>Không có tác giả nào.</td></tr>";
-                        }
-                    ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <a href="index.php?controller=author&action=add" class="btn btn-success mb-3">Thêm mới</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên tác giả</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if ($authors && $authors->num_rows > 0): ?>
+                <?php while ($row = $authors->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= $row['ma_tgia']; ?></td>
+                        <td><?= $row['ten_tgia']; ?></td>
+                        <td><a href="index.php?controller=author&action=edit&ma_tgia=<?= $row['ma_tgia']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="index.php?controller=author&action=delete&ma_tgia=<?= $row['ma_tgia']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa tác giả này?')"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr><td colspan="4">Không có tác giả nào.</td></tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
     </main>
-    <?php include '../layout/footer.php'; ?>
+    <?php include __DIR__.'/../layout/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,11 +1,14 @@
 <?php
+include 'G:/xampp/htdocs/btth02/configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
+
 class Admin {
     private $conn;
 
-    public function __construct($conn) {
-        $this->conn = $conn;
+    // Hàm khởi tạo nhận kết nối cơ sở dữ liệu
+    public function __construct($db) {
+        $this->conn = $db;
     }
-
+    
     // Đếm số lượng người dùng
     public function countUsers() {
         $sql = "SELECT COUNT(user_id) AS count_users FROM users";

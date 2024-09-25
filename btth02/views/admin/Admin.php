@@ -11,7 +11,7 @@
 </head>
 <body>
     <?php 
-    include '../layout/header.php';
+    include '../layout/adminHeader.php';
     ?>
     <main class="container mt-5 mb-5">
         <div class="row">

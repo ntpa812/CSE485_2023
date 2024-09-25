@@ -1,21 +1,19 @@
 <?php
-include '../configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
+include 'G:/xampp/htdocs/btth02/configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
 
 class Author {
     private $conn;
 
-    public function __construct() {
-        // Kết nối cơ sở dữ liệu
-        $db = new Database();
-        $this->conn = $db->connect();
+    // Hàm khởi tạo nhận kết nối cơ sở dữ liệu
+    public function __construct($db) {
+        $this->conn = $db;
     }
 
+    // Lấy danh sách tất cả các tác giả
     public function getAllAuthors() {
-        // Truy vấn lấy danh sách tác giả
-        $sql = "SELECT ma_tgia, ten_tgia FROM tacgia";
-        $result = $this->conn->query($sql);
-
-        return $result; // Trả về kết quả
+        $query = "SELECT ma_tgia, ten_tgia FROM tacgia";
+        $result = $this->conn->query($query);
+        return $result;
     }
 
     public function addAuthor($name, $image) {

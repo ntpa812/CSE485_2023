@@ -1,11 +1,12 @@
 <?php
-include_once '../services/AdminService.php';
+require_once './models/Admin.php';
+require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
 
 class AdminController {
     private $adminService;
 
     public function __construct() {
-        $this->adminService = new AdminService();
+        $this->adminService = new Admin();
     }
 
     public function index() {

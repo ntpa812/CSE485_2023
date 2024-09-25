@@ -1,21 +1,21 @@
 <?php
+require_once './models/Author.php'; // Gọi model
+require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
+
 class AuthorController {
-    private $authorService;
+    private $authorModel;
 
     public function __construct() {
-        $this->authorService = new AuthorService();
+        global $conn; // Sử dụng biến $conn từ db.php
+        $this->authorModel = new Author($conn); // Tạo instance của model
     }
-
-    public function listAuthors() {
-        // Gọi AuthorService để lấy danh sách tác giả
-        $authors = $this->authorService->getAllAuthors();
+    // Phương thức hiển thị danh sách tác giả
+    public function index() {
+        // Lấy dữ liệu từ model
+        $authors = $this->authorModel->getAllAuthors();
         
-        // Kiểm tra xem dữ liệu có được trả về không và truyền sang View
-        if ($authors) {
-            include '../views/author/list_author.php'; // Hiển thị view
-        } else {
-            echo "Lỗi: Không thể lấy danh sách tác giả.";
-        }
+        // Gửi dữ liệu cho view để hiển thị
+        require_once './views/author/list_author.php';
     }
 
     public function addAuthor() {
