@@ -1,21 +1,18 @@
 <?php
-require_once './models/Admin.php';
-require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
-
+include './services/AdminService.php';
 class AdminController {
     private $adminService;
 
     public function __construct() {
-        global $db; // Sử dụng biến $conn từ db.php
-        $this->authorModel = new Admin($db); // Tạo instance của model
+        // Khởi tạo đối tượng AdminService
+        $this->adminService = new AdminService();
     }
 
     public function index() {
-        // Lấy dữ liệu từ AdminService
+        // Gọi phương thức getStatistics từ đối tượng adminService
         $counts = $this->adminService->getStatistics();
 
-        // Truyền dữ liệu sang view
-        require_once '../views/admin/Admin.php';
+        // Truyền dữ liệu vào view
+        include 'views/admin/Admin.php';
     }
 }
-?>

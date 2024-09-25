@@ -1,38 +1,33 @@
 <?php
-include_once '../models/Admin.php';
-
 class AdminService {
-    private $db;
-
-    public function __construct() {
-        $this->db = new Database(); // Giả sử bạn có lớp Database để kết nối
-    }
-
     public function getStatistics() {
-        $counts = [];
+        include './configs/db.php'; // Kết nối CSDL
 
-        // Lấy số lượng thể loại
-        $sql = "SELECT COUNT(ma_tloai) AS count FROM theloai";
-        $result = $this->db->query($sql);
-        $counts['categories'] = $result->fetch_assoc()['count'];
+        // Đếm số lượng thể loại
+        $sql_theloai = "SELECT COUNT(ma_tloai) AS count_theloai FROM theloai";
+        $result_theloai = $db->query($sql_theloai);
+        $count_theloai = $result_theloai->fetch_assoc()['count_theloai'];
 
-        // Lấy số lượng tác giả
-        $sql = "SELECT COUNT(ma_tgia) AS count FROM tacgia";
-        $result = $this->db->query($sql);
-        $counts['authors'] = $result->fetch_assoc()['count'];
+        // Đếm số lượng tác giả
+        $sql_tacgia = "SELECT COUNT(ma_tgia) AS count_tacgia FROM tacgia";
+        $result_tacgia = $db->query($sql_tacgia);
+        $count_tacgia = $result_tacgia->fetch_assoc()['count_tacgia'];
 
-        // Lấy số lượng bài viết
-        $sql = "SELECT COUNT(ma_bviet) AS count FROM baiviet";
-        $result = $this->db->query($sql);
-        $counts['articles'] = $result->fetch_assoc()['count'];
+        // Đếm số lượng bài viết
+        $sql_baiviet = "SELECT COUNT(ma_bviet) AS count_baiviet FROM baiviet";
+        $result_baiviet = $db->query($sql_baiviet);
+        $count_baiviet = $result_baiviet->fetch_assoc()['count_baiviet'];
 
-        // Lấy số lượng người dùng
-        $sql = "SELECT COUNT(user_id) AS count FROM users";
-        $result = $this->db->query($sql);
-        $counts['users'] = $result->fetch_assoc()['count'];
+        // Đếm số lượng người dùng
+        $sql_users = "SELECT COUNT(user_id) AS count_users FROM users";
+        $result_users = $db->query($sql_users);
+        $count_users = $result_users->fetch_assoc()['count_users'];
 
-        return $counts;
+        return [
+            'categories' => $count_theloai,
+            'authors' => $count_tacgia,
+            'articles' => $count_baiviet,
+            'users' => $count_users
+        ];
     }
 }
-
-?>
