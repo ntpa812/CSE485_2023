@@ -6,7 +6,8 @@ class AdminController {
     private $adminService;
 
     public function __construct() {
-        $this->adminService = new Admin();
+        global $db; // Sử dụng biến $conn từ db.php
+        $this->authorModel = new Admin($db); // Tạo instance của model
     }
 
     public function index() {
@@ -14,7 +15,7 @@ class AdminController {
         $counts = $this->adminService->getStatistics();
 
         // Truyền dữ liệu sang view
-        include '../views/admin/Admin.php';
+        require_once '../views/admin/Admin.php';
     }
 }
 ?>

@@ -6,8 +6,8 @@ class AuthorController {
     private $authorModel;
 
     public function __construct() {
-        global $conn; // Sử dụng biến $conn từ db.php
-        $this->authorModel = new Author($conn); // Tạo instance của model
+        global $db; // Sử dụng biến $conn từ db.php
+        $this->authorModel = new Author($db); // Tạo instance của model
     }
     // Phương thức hiển thị danh sách tác giả
     public function index() {
