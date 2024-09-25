@@ -11,7 +11,7 @@
 <body>
     <?php include __DIR__.'/../layout/adminHeader.php'; ?>
     <main class="container mt-5 mb-5">
-        <a href="index.php?controller=author&action=add" class="btn btn-success mb-3">Thêm mới</a>
+        <a href="http://localhost/btth02/index.php?controller=author&action=add" class="btn btn-success mb-3">Thêm mới</a>
         <table class="table">
             <thead>
                 <tr>
@@ -27,8 +27,8 @@
                     <tr>
                         <td><?= $row['ma_tgia']; ?></td>
                         <td><?= $row['ten_tgia']; ?></td>
-                        <td><a href="index.php?controller=author&action=edit&ma_tgia=<?= $row['ma_tgia']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td><a href="index.php?controller=author&action=delete&ma_tgia=<?= $row['ma_tgia']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa tác giả này?')"><i class="fa-solid fa-trash"></i></a></td>
+                        <td><a href="http://localhost/btth02/index.php?controller=author&action=edit&ma_tgia=<?= $row['ma_tgia']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td><a href="http://localhost/btth02/index.php?controller=author&action=delete&ma_tgia=<?= $row['ma_tgia']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa tác giả này?')"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>

@@ -1,24 +1,40 @@
 <?php
-include("configs/DBConnection.php");
-include("models/Article.php");
-class ArticleService{
-    public function getAllArticles(){
-        // 4 bước thực hiện
-       $dbConn = new DBConnection();
-       $conn = $dbConn->getConnection();
+class ArticleService {
+    private $db;
+    private $articleModel;
 
-        // B2. Truy vấn
-        $sql = "SELECT * FROM article INNER JOIN category ON article.category_id=category.id";
-        $stmt = $conn->query($sql);
+    public function __construct() {
+        // Kết nối cơ sở dữ liệu
+        include './configs/db.php';
+        $this->db = $db;
+        
+        // Tạo đối tượng Article Model
+        $this->articleModel = new Article($this->db);
+    }
 
-        // B3. Xử lý kết quả
-        $articles = [];
-        while($row = $stmt->fetch()){
-            $article = new Article($row['title'], $row['summary'], $row['name']);
-            array_push($articles,$article);
-        }
-        // Mảng (danh sách) các đối tượng Article Model
+    // Lấy tất cả bài viết thông qua Article Model
+    public function getAllArticles() {
+        return $this->articleModel->getAllArticles();
+    }
 
-        return $articles;
+    // Thêm bài viết mới thông qua Article Model
+    public function addArticle($title, $summary, $date, $songName, $authorId, $categoryId) {
+        return $this->articleModel->addArticle($title, $summary, $date, $songName, $authorId, $categoryId);
+    }
+
+    // Lấy bài viết theo ID
+    public function getArticleById($articleId) {
+        return $this->articleModel->getArticleById($articleId);
+    }
+
+    // Cập nhật bài viết
+    public function updateArticle($articleId, $title, $summary, $date, $songName, $authorId, $categoryId) {
+        return $this->articleModel->updateArticle($articleId, $title, $summary, $date, $songName, $authorId, $categoryId);
+    }
+
+    // Xóa bài viết
+    public function deleteArticle($articleId) {
+        return $this->articleModel->deleteArticle($articleId);
     }
 }
+?>
