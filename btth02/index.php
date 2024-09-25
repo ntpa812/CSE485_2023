@@ -1,32 +1,28 @@
-<!-- Routing là gì? Định tuyến/Điều hướng -->
-<!-- Phân tích xem: URL của người dùng > Muốn gì -->
-<!-- Ví dụ: Trang chủ, Quản lý bài viết hay Thêm bài viết -->
-<!-- Chuyển quyền cho Controller tương ứng điều khiển tiếp -->
-<!-- URL của tôi thiết kế luôn có dạng: -->
-
-<!-- http://localhost/btth02v2/index.php?controller=A&action=B -->
-<!-- http://localhost/btth02v2/index.php -->
-<!-- http://localhost/btth02v2/index.php?controller=home&action=index -->
-
-<!-- Controller là tên của FILE controller mà chúng ta sẽ gọi -->
-<!-- Action là tên cả HÀM trong FILE controller mà chúng ta gọi -->
+<?php
+      // Nhúng nội dung của header
+      include 'views/layout/header.php';
+      ?>
 
 <?php
-// B1: Bắt giá trị controller và action
-$controller = isset($_GET['controller'])?   $_GET['controller']:'home';
-$action     = isset($_GET['action'])?       $_GET['action']:'index';
+// views/home/index.php
 
-// B2: Chuẩn hóa tên trước khi gọi
-$controller = ucfirst($controller);
-$controller .= 'Controller';
-$controllerPath = 'controllers/'.$controller.'.php';
+// Kết nối tới cơ sở dữ liệu
+include 'configs/db.php';  // Nhúng file db.php để khởi tạo $db
 
-// B3. Để gọi nó Controller
-if(!file_exists($controllerPath)){
-    die('Lỗi! Controller này không tồn tại');
+// Nhúng SongController
+require_once 'controllers/SongController.php';
+
+// Kiểm tra nếu $db đã được khởi tạo thành công
+if (isset($db)) {
+    // Khởi tạo đối tượng SongController và hiển thị top bài hát
+    $songController = new SongController($db);
+    $songController->showTopSongs();
+} else {
+    echo "Không thể kết nối tới cơ sở dữ liệu.";
 }
-require_once($controllerPath);
-// B4. Tạo đối tượng và gọi hàm của Controller
-$myObj = new $controller();  //controller=home > new HomeController()
-$myObj->$action(); //action=index > index()
 ?>
+
+<?php
+    // Nhúng nội dung của footer
+    include 'views/layout/footer.php';
+    ?>

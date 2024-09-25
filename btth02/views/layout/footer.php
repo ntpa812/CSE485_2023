@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/style_upd.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style_upd.css">
 
 
 <footer class="footer" style="height:80px">
