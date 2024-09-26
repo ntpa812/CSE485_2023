@@ -1,22 +1,26 @@
+<?php
+// controllers/HomeController.php
 
-    <?php 
-        include 'views/layout/header.php';
+// Đảm bảo đã nhúng SongController
+require_once 'controllers/SongController.php'; 
 
-        include 'views/home/slideshow.php';
-        
-        include 'configs/db.php';
-        
-        require_once 'controllers/SongController.php';
+class HomeController {
+    private $db;
 
-            // Kiểm tra nếu $db đã được khởi tạo thành công
-            if (isset($db)) {
-                // Khởi tạo đối tượng SongController và hiển thị top bài hát
-                $songController = new SongController($db);
-                $songController->showTopSongs();
-            } else {
-                echo "Không thể kết nối tới cơ sở dữ liệu.";
-            }
+    // Hàm khởi tạo nhận kết nối cơ sở dữ liệu
+    public function __construct($db) {
+        $this->db = $db;
+    }
 
-        include 'views/layout/footer.php';
+    // Action hiển thị trang chủ
+    public function index() {
+        // Khởi tạo đối tượng SongController và lấy dữ liệu top bài hát
+        $songController = new SongController($this->db);
+        $topSongs = $songController->getTopSongsData(); // Lấy dữ liệu từ phương thức trong SongController
 
-?>
+        // Bao gồm view để hiển thị
+        include 'views/home/index.php';
+    }
+
+    // Các action khác như showTopSongs, search, etc.
+}

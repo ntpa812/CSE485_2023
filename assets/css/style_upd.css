@@ -24,7 +24,7 @@
     color:turquoise;
     font-weight: bold; 
     padding-top: 1rem;
-    /* margin-bottom: 3rem; */
+    padding-bottom: 2rem;
 
 }
 
@@ -71,4 +71,9 @@ footer {
     background-color:#0D1226;
     position:fixed;
     color:rgb(117, 202, 202);
+}
+
+
+.nav-result {
+    margin-bottom: 3rem;
 }

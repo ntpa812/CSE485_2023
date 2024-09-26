@@ -9,7 +9,7 @@ class SongModel {
 
     public function getTopSongs() {
         $query = "
-            SELECT ten_bhat, hinhanh
+            SELECT ma_bviet, ten_bhat, hinhanh
             FROM baiviet";
 
         $result = $this->db->query($query);
