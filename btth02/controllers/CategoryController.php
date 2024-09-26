@@ -16,7 +16,7 @@ class CategoryController {
         $categories = $this->categoryService->getAllCategories();
 
         // Gọi view để hiển thị danh sách thể loại
-        include 'views/category/list_category.php';
+        include './views/category/list_category.php';
     }
 
     public function add() {
@@ -26,8 +26,28 @@ class CategoryController {
             header('Location: index.php?controller=category&action=index');
         } else {
             // Hiển thị form thêm mới
-            include 'views/category/add_category.php';
+            include './views/category/add_category.php';
         }
+    }
+
+
+    public function edit() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['ma_tloai'];
+            $name = $_POST['ten_tloai'];
+            $this->categoryService->editCategory($id, $name);
+            header('Location: index.php?controller=category&action=index');
+        } else {
+            $id = $_GET['ma_tloai'];
+            $category = $this->categoryService->getCategoryById($id);
+            include './views/category/edit_category.php';
+        }
+    }
+
+    public function delete() {
+        $id = $_GET['ma_tloai'];
+        $this->categoryService->deleteCategory($id);
+        header('Location: index.php?controller=category&action=index');
     }
 }
 ?>
