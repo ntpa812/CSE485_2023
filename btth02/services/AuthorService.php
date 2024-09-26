@@ -10,8 +10,16 @@ class AuthorService {
         return $this->authorModel->getAllAuthors(); // Trả về kết quả của phương thức getAllAuthors trong Model
     }
 
-    public function addAuthor($name, $image) {
-        return $this->authorModel->addAuthor($name, $image);
+    public function getAuthorById($id) {
+        return $this->authorModel->getAuthorById($id);
+    }
+
+    public function addAuthor($name) {
+        return $this->authorModel->addAuthor($name);
+    }
+
+    public function editAuthor($id, $name) {
+        return $this->authorModel->editAuthor($id, $name);
     }
 
     public function deleteAuthor($id) {
