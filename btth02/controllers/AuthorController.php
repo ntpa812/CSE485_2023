@@ -33,16 +33,33 @@ class AuthorController {
 
     // Phương thức sửa tác giả
     public function edit() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $id = $_POST['ma_tgia'];
-            $name = $_POST['ten_tgia'];
-            $image = $_POST['hinh_tgia'];
-            $this->authorModel->editAuthor($id, $name, $image);
-            header('Location: index.php?controller=author&action=index');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Handle form submission (POST request)
+            $ma_tgia = $_POST['ma_tgia'];
+            $ten_tgia = $_POST['ten_tgia'];
+            $hinh_tgia = $_POST['hinh_tgia'];
+    
+            $success = $this->authorModel->editAuthor($ma_tgia, $ten_tgia, $hinh_tgia);
+            if ($success) {
+                header("Location: index.php?controller=author&action=index&msg=edit");
+            } else {
+                echo "Lỗi cập nhật tác giả.";
+            }
         } else {
-            $id = $_GET['ma_tgia'];
-            $author = $this->authorModel->getAuthorById($id);
-            require_once './views/author/edit_author.php';
+            // Display edit form (GET request)
+            if (isset($_GET['ma_tgia'])) {
+                $ma_tgia = $_GET['ma_tgia'];
+                $author = $this->authorModel->getAuthorbyId($ma_tgia);
+    
+                if ($author) {
+                    // Pass data to the view
+                    include './views/author/edit_author.php';
+                } else {
+                    header("Location: index.php?controller=author&action=index&msg=not_found");
+                }
+            } else {
+                header("Location: index.php?controller=author&action=index&msg=invalid_id");
+            }
         }
     }
 

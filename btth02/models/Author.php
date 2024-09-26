@@ -16,13 +16,15 @@ class Author {
         return $result;
     }
 
-    public function getAuthorById($id) {
-        $query = "SELECT ma_tgia, ten_tgia FROM tacgia WHERE ma_tgia = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
+    public function getAuthorById($ma_tgia) {
+        $sql = "SELECT * FROM tacgia WHERE ma_tgia = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $ma_tgia);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result;
+        
+        // Trả về mảng kết hợp từ kết quả truy vấn
+        return $result->fetch_assoc();
     }
 
     public function addAuthor($name, $image) {
@@ -37,14 +39,13 @@ class Author {
         return $stmt->execute();
     }
 
-
     public function editAuthor($id, $name, $image) {
         $sql = "UPDATE tacgia SET ten_tgia = ?, hinh_tgia = ? WHERE ma_tgia = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ssi", $name, $image, $id);
-        $stmt->execute();
+        return $stmt->execute();
     }
-
+    
     public function deleteAuthor($id) {
         $sql = "DELETE FROM tacgia WHERE ma_tgia = ?";
         $stmt = $this->conn->prepare($sql);

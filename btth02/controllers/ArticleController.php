@@ -21,11 +21,11 @@ class ArticleController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $title = $_POST['tieude'];
             $summary = $_POST['tomtat'];
-            $date = $_POST['ngayviet'];
             $songName = $_POST['ten_bhat'];
-            $authorId = $_POST['ma_tgia'];
-            $categoryId = $_POST['ma_tloai'];
-
+            $authorId = $this->articleService->getAuthorIdBySongName($songName);
+            $categoryId = $this->articleService->getCategoryIdBySongName($songName);
+            $date = date('Y-m-d'); // Tạo ngày viết tự động
+    
             // Gọi service để thêm bài viết mới
             $this->articleService->addArticle($title, $summary, $date, $songName, $authorId, $categoryId);
             header('Location: index.php?controller=article&action=index');
@@ -42,10 +42,10 @@ class ArticleController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $title = $_POST['tieude'];
             $summary = $_POST['tomtat'];
-            $date = $_POST['ngayviet'];
             $songName = $_POST['ten_bhat'];
-            $authorId = $_POST['ma_tgia'];
-            $categoryId = $_POST['ma_tloai'];
+            $authorId = $this->articleService->getAuthorIdBySongName($songName);
+            $categoryId = $this->articleService->getCategoryIdBySongName($songName);
+            $date = date('Y-m-d'); // Tạo ngày viết tự động
 
             // Gọi service để cập nhật bài viết
             $this->articleService->updateArticle($articleId, $title, $summary, $date, $songName, $authorId, $categoryId);
