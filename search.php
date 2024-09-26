@@ -11,21 +11,21 @@
 
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include 'views/layout/header.php'; ?>
     <?php
         // Connect to the database
-        include 'db.php'; // Ensure this file connects to your database
+        include 'configs/db.php'; // Ensure this file connects to your database
 
         // Check if a search query exists
         $searchQuery = isset($_GET['query']) ? trim($_GET['query']) : '';
 
         if ($searchQuery) {
             // Sanitize the user input to prevent SQL injection
-            $searchQuery = mysqli_real_escape_string($conn, $searchQuery);
+            $searchQuery = mysqli_real_escape_string($db, $searchQuery);
 
             // Query to search for songs by name
             $query = "SELECT ma_bviet, ten_bhat, hinhanh FROM baiviet WHERE ten_bhat LIKE ?";
-            $stmt = mysqli_prepare($conn, $query);
+            $stmt = mysqli_prepare($db, $query);
             $likeQuery = '%' . $searchQuery . '%';
             mysqli_stmt_bind_param($stmt, 's', $likeQuery);
             mysqli_stmt_execute($stmt);
@@ -44,10 +44,10 @@
                         ?>
                         <div class="col-sm-3">
                             <div class="card mb-2" style="width: 100%;">
-                                <img src="images/songs/<?php echo $row['hinhanh']; ?>" alt="<?php echo $row['ten_bhat']; ?>" class="card-img-top">
+                                <img src="assets/images/songs/<?php echo $row['hinhanh']; ?>" alt="<?php echo $row['ten_bhat']; ?>" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">
-                                        <a href="../details/index.php?id=<?php echo $row['ma_bviet']; ?>" class="text-decoration-none"><?php echo $row['ten_bhat']; ?></a>
+                                        <a href="views/details/detail.php?id=<?php echo $row['ma_bviet']; ?>" class="text-decoration-none"><?php echo $row['ten_bhat']; ?></a>
                                     </h5>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'views/layout/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>

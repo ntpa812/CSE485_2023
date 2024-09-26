@@ -51,7 +51,7 @@
 
         // Truy vấn để tìm user theo username
         $sql = "SELECT * FROM Users WHERE username = ?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $db->prepare($sql);
         
         if ($stmt === false) {
             die('Lỗi chuẩn bị truy vấn SQL: ' . htmlspecialchars($conn->error));

@@ -1,6 +1,4 @@
-HTML {
-    background-color:#0D1226;
-}
+
 
 
 .container-fluid {
@@ -24,9 +22,9 @@ HTML {
 .nav-top-song {
     background-color:#0D1226;
     color:turquoise;
-    text-decoration: bold;
+    font-weight: bold; 
     padding-top: 1rem;
-    margin-bottom: 3rem;
+    /* margin-bottom: 3rem; */
 
 }
 

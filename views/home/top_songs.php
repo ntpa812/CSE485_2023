@@ -13,7 +13,7 @@
                             <img src="assets/images/songs/<?= $song['hinhanh'] ?>" class="card-img-top" alt="<?= $song['ten_bhat'] ?>">
                             <div class="card-body">
                                 <h5 class="card-title text-center">
-                                    <a href="views/details/detail.php?id=<?= $song['ma_bviet'] ?>" class="text-decoration-none"><?= $song['ten_bhat'] ?></a>
+                                    <a href="detail.php?id=<?= $song['ma_bviet'] ?>" class="text-decoration-none"><?= $song['ten_bhat'] ?></a>
                                 </h5>
                             </div>
                         </div>
