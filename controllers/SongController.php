@@ -1,6 +1,6 @@
 <?php
 // controllers/SongController.php
-require_once '../../models/SongModel.php';
+require_once 'models/SongModel.php';
 
 class SongController {
     private $db;
@@ -22,7 +22,7 @@ class SongController {
         }
 
         // Truyền mảng $songs cho view
-        include '../../views/home/top_songs.php';  // Đảm bảo view đang được nhúng sau khi có dữ liệu
+        include 'views/home/top_songs.php';  // Đảm bảo view đang được nhúng sau khi có dữ liệu
     }
 }
 

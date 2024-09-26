@@ -10,10 +10,10 @@
                 <?php foreach ($songs as $song): ?>
                     <div class="col-sm-3">
                         <div class="card mb-2" style="width: 100%;">
-                            <img src="../../assets/images/songs/<?= $song['hinhanh'] ?>" class="card-img-top" alt="<?= $song['ten_bhat'] ?>">
+                            <img src="assets/images/songs/<?= $song['hinhanh'] ?>" class="card-img-top" alt="<?= $song['ten_bhat'] ?>">
                             <div class="card-body">
                                 <h5 class="card-title text-center">
-                                    <a href="../../article/detail.php?id=<?= $song['ma_bviet'] ?>" class="text-decoration-none"><?= $song['ten_bhat'] ?></a>
+                                    <a href="views/details/detail.php?id=<?= $song['ma_bviet'] ?>" class="text-decoration-none"><?= $song['ten_bhat'] ?></a>
                                 </h5>
                             </div>
                         </div>
