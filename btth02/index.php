@@ -37,3 +37,4 @@ if (method_exists($myObj, $action)) {
 } else {
     die('Lỗi! Action này không tồn tại');
 }
+?>

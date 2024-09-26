@@ -29,8 +29,18 @@ class Article {
 
     // Thêm một bài viết mới vào cơ sở dữ liệu
     public function addArticle($title, $summary, $date, $songName, $authorId, $categoryId) {
-        $sql = "INSERT INTO baiviet (tieude, tomtat, ngayviet, ten_bhat, ma_tgia, ma_tloai) 
-                VALUES ('$title', '$summary', '$date', '$songName', '$authorId', '$categoryId')";
+        // Get the maximum article ID from the database
+        $sql = "SELECT MAX(ma_bviet) AS max_id FROM baiviet";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        $maxId = $row['max_id'];
+    
+        // Assign the new article ID as the maximum ID plus one
+        $newArticleId = $maxId + 1;
+    
+        // Insert the new article into the database
+        $sql = "INSERT INTO baiviet (ma_bviet, tieude, tomtat, ngayviet, ten_bhat, ma_tgia, ma_tloai) 
+                VALUES ('$newArticleId', '$title', '$summary', '$date', '$songName', '$authorId', '$categoryId')";
         return $this->conn->query($sql);
     }
 
@@ -39,6 +49,24 @@ class Article {
         $sql = "SELECT * FROM baiviet WHERE ma_bviet = '$articleId'";
         $result = $this->conn->query($sql);
         return $result->fetch_assoc(); // Trả về một mảng kết quả
+    }
+
+    // Lấy mã tác giả theo tên bài hát
+    public function getAuthorIdBySongName($songName) {
+        // Implement logic to retrieve author id based on song name
+        // For example, you can use a database query or a lookup table
+        // Replace the following line with your actual implementation
+        $authorId = 1; // Placeholder value, replace with actual logic
+        return $authorId;
+    }
+    
+    // Lấy mã thể loại theo tên bài hát
+    public function getCategoryIdBySongName($songName) {
+        // Implement logic to retrieve category id based on song name
+        // For example, you can use a database query or a lookup table
+        // Replace the following line with your actual implementation
+        $categoryId = 1; // Placeholder value, replace with actual logic
+        return $categoryId;
     }
 
     // Cập nhật bài viết theo mã bài viết

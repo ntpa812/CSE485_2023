@@ -18,10 +18,9 @@ class AuthorService {
         return $this->authorModel->addAuthor($name);
     }
 
-    public function editAuthor($id, $name) {
-        return $this->authorModel->editAuthor($id, $name);
+    public function editAuthor($id, $name, $image) {
+        return $this->authorModel->editAuthor($id, $name, $image);
     }
-
     public function deleteAuthor($id) {
         return $this->authorModel->deleteAuthor($id);
     }
