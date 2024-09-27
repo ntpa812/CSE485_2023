@@ -15,7 +15,7 @@
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">
-                <a href="http://localhost/btth02/index.php?controller=article&action=add" class="btn btn-success mb-3">Thêm mới</a>
+                <a href="index.php?controller=article&action=add" class="btn btn-success mb-3">Thêm mới</a>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -41,8 +41,8 @@
                             <td><?php echo $article['ten_tloai']; ?></td>
                             <td><?php echo substr($article['tomtat'], 0, 50) . '...'; ?></td>
                             <td><?php echo $article['ngayviet']; ?></td>
-                            <td><a href="http://localhost/btth02/index.php?controller=article&action=edit&ma_bviet=<?= $article['ma_bviet']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td><a href="http://localhost/btth02/index.php?controller=article&action=delete&ma_bviet=<?= $article['ma_bviet']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này?')"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="index.php?controller=article&action=edit&ma_bviet=<?= $article['ma_bviet']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="index.php?controller=article&action=delete&ma_bviet=<?= $article['ma_bviet']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này?')"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

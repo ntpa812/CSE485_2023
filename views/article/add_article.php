@@ -25,7 +25,7 @@ z<!DOCTYPE html>
                     <?php endif; ?>
                 <?php endif; ?>
 
-                <form action="http://localhost/btth02/index.php?controller=article&action=add" method="post">
+                <form action="index.php?controller=article&action=add" method="post">
                     <div class="mb-3">
                         <label for="tieude" class="form-label">Tiêu đề bài viết</label>
                         <input type="text" class="form-control" name="tieude" required>
@@ -43,7 +43,7 @@ z<!DOCTYPE html>
                         <textarea class="form-control" name="noidung"></textarea>
                     </div>
                     <button type="submit" class="btn btn-success">Thêm</button>
-                    <a href="http://localhost/btth02/index.php?controller=article&action=index" class="btn btn-warning">Quay lại</a>
+                    <a href="index.php?controller=article&action=index" class="btn btn-warning">Quay lại</a>
                 </form>
             </div>
         </div>

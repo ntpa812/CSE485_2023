@@ -32,7 +32,7 @@
                 <div class="card mb-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="http://localhost/btth02/index.php?controller=category&action=index" class="text-decoration-none">Thể loại</a>
+                            <a href="index.php?controller=category&action=index" class="text-decoration-none">Thể loại</a>
                         </h5>
                         <h5 class="h1 text-center">
                             <?php echo isset($counts['categories']) ? $counts['categories'] : 0; ?> <!-- Kiểm tra và hiển thị số thể loại -->
@@ -45,7 +45,7 @@
                 <div class="card mb-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="http://localhost/btth02/index.php?controller=author&action=index" class="text-decoration-none">Tác giả</a>
+                            <a href="index.php?controller=author&action=index" class="text-decoration-none">Tác giả</a>
                         </h5>
                         <h5 class="h1 text-center">
                             <?php echo isset($counts['authors']) ? $counts['authors'] : 0; ?> <!-- Kiểm tra và hiển thị số tác giả -->
@@ -58,7 +58,7 @@
                 <div class="card mb-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title text-center">
-                            <a href="http://localhost/btth02/index.php?controller=article&action=index" class="text-decoration-none">Bài viết</a>
+                            <a href="index.php?controller=article&action=index" class="text-decoration-none">Bài viết</a>
                         </h5>
                         <h5 class="h1 text-center">
                             <?php echo isset($counts['articles']) ? $counts['articles'] : 0; ?> <!-- Kiểm tra và hiển thị số bài viết -->

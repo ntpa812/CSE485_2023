@@ -24,14 +24,14 @@
                 ?>
                 
                 <!-- Form thêm thể loại mới -->
-                <form action="http://localhost/btth02/index.php?controller=category&action=add" method="post">
+                <form action="index.php?controller=category&action=add" method="post">
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCategoryName">Tên thể loại</span>
                         <input type="text" class="form-control" name="ten_tloai" placeholder="Nhập tên thể loại" required>
                     </div>
                     <div class="form-group float-end">
                         <input type="submit" value="Thêm" class="btn btn-success">
-                        <a href="http://localhost/btth02/index.php?controller=category&action=index" class="btn btn-warning">Quay lại</a>
+                        <a href="index.php?controller=category&action=index" class="btn btn-warning">Quay lại</a>
                     </div>
                 </form>
             </div>

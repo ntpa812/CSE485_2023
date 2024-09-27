@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Chỉnh sửa bài viết</h3>
-                <form action="http://localhost/btth02/index.php?controller=article&action=edit&ma_bviet=<?php echo $article['ma_bviet']; ?>" method="post">
+                <form action="index.php?controller=article&action=edit&ma_bviet=<?php echo $article['ma_bviet']; ?>" method="post">
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text">Tiêu đề bài viết</span>
                         <input type="text" class="form-control" name="tieude" value="<?php echo $article['tieude']; ?>" required>
@@ -39,7 +39,7 @@
 
                     <div class="form-group float-end">
                         <input type="submit" value="Lưu lại" class="btn btn-success">
-                        <a href="http://localhost/btth02/index.php?controller=article&action=index" class="btn btn-warning">Quay lại</a>
+                        <a href="index.php?controller=article&action=index" class="btn btn-warning">Quay lại</a>
                     </div>
                 </form>
             </div>
