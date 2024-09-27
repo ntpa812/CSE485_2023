@@ -26,21 +26,23 @@ class LoginController {
 
                 // Chuyển hướng dựa trên vai trò
                 if ($user['role'] === 'admin') {
-                    header("Location: admin/index.php");
+                    header("Location: index.php?controller=admin&action=index");
                 } else {
-                    header("Location: index.php");
+                    header("Location: index.php?controller=home&action=index");
                 }
                 exit();
             } else {
                 // Đăng nhập thất bại
                 $_SESSION['error_message'] = 'Tên đăng nhập hoặc mật khẩu không đúng!';
-                header("Location: login.php"); // Chuyển hướng trở lại trang đăng nhập
+                header("Location: index.php?controller=login&action=showLoginForm"); // Chuyển hướng trở lại trang đăng nhập
                 exit();
             }
         }
     }
 
     public function showLoginForm() {
+        $current_page = 'login'; 
+        
         include 'views/login/login_form.php';
     }
 }

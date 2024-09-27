@@ -11,8 +11,12 @@ class SearchController {
     public function search($query) {
         // Lấy dữ liệu từ model
         $songs = $this->model->searchSongs($query);
+        
         // Gửi dữ liệu sang view
         include 'views/search/result.php';
     }
 }
+
+
+
 ?>

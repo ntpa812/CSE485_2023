@@ -16,7 +16,7 @@
 <?php
     include 'views/layout/header.php';
 
-   // session_start(); // Bắt đầu session để kiểm tra thông báo lỗi
+   session_start(); // Bắt đầu session để kiểm tra thông báo lỗi
 
     // Kiểm tra nếu có thông báo lỗi trong session và hiển thị nó
     if (isset($_SESSION['error_message'])) {
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="login.php">
+                <form method="POST" action="index.php?controller=login&action=login">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
                         <input type="text" class="form-control" name="username" placeholder="username" required>

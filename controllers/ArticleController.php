@@ -3,22 +3,37 @@
 
 require_once 'models/ArticleModel.php'; // Gọi model tương ứng
 
+// controllers/ArticleController.php
+
+// controllers/ArticleController.php
 class ArticleController {
-    private $articleModel;
+    private $db;
 
     public function __construct($db) {
-        $this->articleModel = new ArticleModel($db);
+        $this->db = $db;
     }
 
-    // Phương thức hiển thị chi tiết bài viết
     public function detail($id) {
-        $article = $this->articleModel->getArticleById($id);
-        if ($article) {
-            include 'views/article/detail.php'; // Gọi view để hiển thị dữ liệu
+        // Lấy chi tiết bài viết từ cơ sở dữ liệu
+        $query = "SELECT * FROM baiviet 
+                    join theloai on baiviet.ma_tloai=theloai.ma_tloai
+                    join tacgia on baiviet.ma_tgia=tacgia.ma_tgia WHERE ma_bviet = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id); // Ràng buộc ID như một số nguyên
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $article = $result->fetch_assoc();
+            include 'views/article/detail.php'; // Hiển thị bài viết
         } else {
             echo "Bài viết không tồn tại!";
         }
+
+        $stmt->close();
     }
 }
+
+
 
 ?>
