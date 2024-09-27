@@ -29,7 +29,7 @@ if (method_exists($myObj, $action)) {
 } else {
     die('Lỗi! Action này không tồn tại');
 }
-?>
+
 // Tạo đối tượng controller
 $myObj = new $controller($db);
 
@@ -37,3 +37,5 @@ $myObj = new $controller($db);
 if ($action === 'detail' && isset($id)) {
     $myObj->$action($id); // Gọi hàm detail với tham số id
 } 
+
+?>
