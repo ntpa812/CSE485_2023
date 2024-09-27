@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 HTML {
     background-color:#0D1226;
 }
+=======
+
+>>>>>>> mvc-model
 
 
 .container-fluid {
@@ -24,8 +28,15 @@ HTML {
 .nav-top-song {
     background-color:#0D1226;
     color:turquoise;
+<<<<<<< HEAD
     text-decoration: bold;
     padding-top: 1rem;
+=======
+    font-weight: bold; 
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+
+>>>>>>> mvc-model
 }
 
 .btn-search {
@@ -71,4 +82,12 @@ footer {
     background-color:#0D1226;
     position:fixed;
     color:rgb(117, 202, 202);
+<<<<<<< HEAD
+=======
+}
+
+
+.nav-result {
+    margin-bottom: 3rem;
+>>>>>>> mvc-model
 }

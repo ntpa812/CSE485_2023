@@ -1,5 +1,5 @@
 <?php
-include 'G:/xampp/htdocs/btth02/configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
+include 'configs/db.php'; // Hoặc đường dẫn tương ứng với tệp db.php
 
 class Author {
     private $conn;
