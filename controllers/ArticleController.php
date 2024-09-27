@@ -1,25 +1,24 @@
 <?php
-require_once 'models/ArticleModel.php';
+// controllers/ArticleController.php
+
+require_once 'models/ArticleModel.php'; // Gọi model tương ứng
 
 class ArticleController {
-    private $model;
+    private $articleModel;
 
     public function __construct($db) {
-        $this->model = new ArticleModel($db);
+        $this->articleModel = new ArticleModel($db);
     }
 
-    public function showDetail($id) {
-        // Lấy dữ liệu từ model
-        $article = $this->model->getArticleById($id);
-
-        // Kiểm tra nếu bài viết không tồn tại
-        if (!$article) {
+    // Phương thức hiển thị chi tiết bài viết
+    public function detail($id) {
+        $article = $this->articleModel->getArticleById($id);
+        if ($article) {
+            include 'views/article/detail.php'; // Gọi view để hiển thị dữ liệu
+        } else {
             echo "Bài viết không tồn tại!";
-            return;
         }
-
-        // Gửi dữ liệu sang view
-        include 'views/home/index.php';
     }
 }
+
 ?>
