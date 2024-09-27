@@ -4,10 +4,15 @@ require_once './services/ArticleService.php';
 require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
 class ArticleController {
     private $articleService;
+    private $db;
 
-    public function __construct() {
+
+    public function __construct($db) {
         // Khởi tạo ArticleService
         $this->articleService = new ArticleService();
+
+        $this->db = $db;
+
     }
 
     // Hiển thị danh sách bài viết
@@ -61,5 +66,29 @@ class ArticleController {
         $this->articleService->deleteArticle($articleId);
         header('Location: index.php?controller=article&action=index');
     }
+
+
+    public function detail($id) {
+        // Lấy chi tiết bài viết từ cơ sở dữ liệu
+        $query = "SELECT * FROM baiviet 
+                    join theloai on baiviet.ma_tloai=theloai.ma_tloai
+                    join tacgia on baiviet.ma_tgia=tacgia.ma_tgia WHERE ma_bviet = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id); // Ràng buộc ID như một số nguyên
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $article = $result->fetch_assoc();
+            include 'views/article/detail.php'; // Hiển thị bài viết
+        } else {
+            echo "Bài viết không tồn tại!";
+        }
+
+        $stmt->close();
+    }
 }
+
+
+
 ?>

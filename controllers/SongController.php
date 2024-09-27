@@ -1,33 +1,23 @@
 <?php
-require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
-require_once __DIR__ . '/../services/SongService.php';
-
 class SongController {
-    private $songService;
+    private $db;
 
     public function __construct($db) {
-        // Khởi tạo SongService
-        $this->songService = new SongService($db);
+        $this->db = $db;
     }
 
-    // Hiển thị chi tiết bài hát
-    public function detail() {
-        // Lấy ID bài hát từ URL
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
+    // Phương thức để lấy dữ liệu các bài hát
+    public function getSongs() {
+        $query = "SELECT ten_bhat, hinhanh, ma_bviet FROM baiviet order by ngayviet desc limit 5"; // Câu truy vấn lấy tất cả bài hát
+        $result = $this->db->query($query);
 
-        if ($id) {
-            // Lấy chi tiết bài hát từ SongService
-            $song = $this->songService->getSongById($id);
-
-            if ($song) {
-                // Nếu tìm thấy bài hát, nhúng view và truyền dữ liệu
-                include './views/songs/detail.php';
-            } else {
-                echo "Không tìm thấy bài hát!";
-            }
-        } else {
-            echo "ID bài hát không hợp lệ!";
+        $songs = [];
+        while ($row = $result->fetch_assoc()) {
+            $songs[] = $row; // Thêm bài hát vào mảng
         }
+
+        return $songs; // Trả về mảng bài hát
     }
 }
+
 ?>

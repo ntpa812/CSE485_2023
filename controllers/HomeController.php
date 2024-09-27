@@ -1,24 +1,41 @@
 <?php
-require_once __DIR__ . '/../services/SongService.php';
-require_once './configs/db.php'; // Kết nối cơ sở dữ liệu
+
+require_once 'controllers/SongController.php';
+require_once 'controllers/SearchController.php'; // Nhúng SearchController
 
 class HomeController {
     private $db;
-    private $songService;
 
+    // Hàm khởi tạo nhận kết nối cơ sở dữ liệu
     public function __construct($db) {
-        // Khởi tạo SongService
         $this->db = $db;
-        $this->songService = new SongService($db);
     }
 
-    // Action để hiển thị trang chủ
+    // Action hiển thị trang chủ
     public function index() {
-        // Gọi service để lấy dữ liệu top bài hát
-        $topSongs = $this->songService->getTopSongs(5);
 
-        // Nhúng view trang chủ và truyền dữ liệu
-        include './views/home/index.php';
+        $current_page = 'home';
+        // Khởi tạo đối tượng SongController
+        $songController = new SongController($this->db);
+        $songs = $songController->getSongs(); // Lấy dữ liệu bài hát
+
+        // Bao gồm view để hiển thị
+        include 'views/home/index.php';
+    }
+
+    // Phương thức tìm kiếm
+    public function search() {
+        if (isset($_GET['query'])) {
+            $query = $_GET['query'];
+
+            // Khởi tạo đối tượng SearchController và gọi phương thức search
+            $searchController = new SearchController($this->db);
+            $searchController->search($query);
+        } else {
+            // Nếu không có truy vấn tìm kiếm, có thể chuyển hướng về trang chủ hoặc thông báo lỗi
+            header("Location: index.php?controller=home&action=index");
+            exit();
+        }
     }
 }
 ?>
