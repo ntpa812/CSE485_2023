@@ -23,7 +23,7 @@
                     if (!empty($article['hinhanh']) && file_exists($imagePath)) {
                         $imageFile = $article['hinhanh'];
                     } else {
-                        $imageFile = 'default.jpg'; // Hình ảnh mặc định
+                        $imageFile = '../../assets/images/logo.png'; // Hình ảnh mặc định
                     }
                 ?>
                 <img src="assets/images/songs/<?php echo htmlspecialchars($imageFile); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($article['ten_bhat']); ?>">

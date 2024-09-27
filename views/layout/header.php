@@ -28,10 +28,10 @@
                 <div class="collapse navbar-collapse main-color" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>" aria-current="page" href="./">Trang chủ</a>
+                            <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php?action=home' ? 'active' : ''; ?>" aria-current="page" href="index.php">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : ''; ?>" href="./login.php">Đăng nhập</a>
+                            <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php?action=login' ? 'active' : ''; ?>" href="index.php?action=login">Đăng nhập</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" method="GET" action="search.php">

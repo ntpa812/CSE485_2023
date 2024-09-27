@@ -16,7 +16,7 @@
 <?php
     include 'views/layout/header.php';
 
-    session_start(); // Bắt đầu session để kiểm tra thông báo lỗi
+   // session_start(); // Bắt đầu session để kiểm tra thông báo lỗi
 
     // Kiểm tra nếu có thông báo lỗi trong session và hiển thị nó
     if (isset($_SESSION['error_message'])) {
