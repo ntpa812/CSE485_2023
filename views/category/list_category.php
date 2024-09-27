@@ -14,7 +14,7 @@
 
     <div class="container">
         <h2>Danh sách thể loại</h2>
-        <a href="http://localhost/btth02/index.php?controller=category&action=add" class="btn btn-success mb-3">Thêm mới</a>
+        <a href="index.php?controller=category&action=add" class="btn btn-success mb-3">Thêm mới</a>
         <table class="table">
             <thead>
                 <tr>
@@ -30,8 +30,8 @@
                         <tr>
                             <td><?php echo $category['ma_tloai']; ?></td>
                             <td><?php echo $category['ten_tloai']; ?></td>
-                            <td><a href="http://localhost/btth02/index.php?controller=category&action=edit&ma_tloai=<?= $category['ma_tloai']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td><a href="http://localhost/btth02/index.php?controller=category&action=delete&ma_tloai=<?= $category['ma_tloai']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa thể loại này?')"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="index.php?controller=category&action=edit&ma_tloai=<?= $category['ma_tloai']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="index.php?controller=category&action=delete&ma_tloai=<?= $category['ma_tloai']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa thể loại này?')"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

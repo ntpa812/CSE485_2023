@@ -10,19 +10,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active fw-bold" aria-current="page" href="http://localhost/btth02/index.php?controller=admin&action=index">Trang chủ</a>
+                    <a class="nav-link active fw-bold" aria-current="page" href="index.php?controller=admin&action=index">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/btth02/index.php?controller=home&action=index">Trang ngoài</a>
+                    <a class="nav-link" href="index.php?controller=home&action=index">Trang ngoài</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/btth02/index.php?controller=category&action=index">Thể loại</a>
+                    <a class="nav-link" href="index.php?controller=category&action=index">Thể loại</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/btth02/index.php?controller=author&action=index">Tác giả</a>
+                    <a class="nav-link" href="index.php?controller=author&action=index">Tác giả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/btth02/index.php?controller=article&action=index">Bài viết</a>
+                    <a class="nav-link" href="index.php?controller=article&action=index">Bài viết</a>
                 </li>
             </ul>
             </div>
