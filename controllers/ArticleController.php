@@ -19,7 +19,7 @@ class ArticleController {
         }
 
         // Gửi dữ liệu sang view
-        include 'views/article/detail.php';
+        include 'views/home/index.php';
     }
 }
 ?>

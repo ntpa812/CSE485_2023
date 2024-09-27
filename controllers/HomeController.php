@@ -2,7 +2,7 @@
 // controllers/HomeController.php
 
 // Đảm bảo đã nhúng SongController
-require_once 'controllers/SongController.php'; 
+// require_once 'controllers/SongController.php'; 
 
 class HomeController {
     private $db;
@@ -15,8 +15,8 @@ class HomeController {
     // Action hiển thị trang chủ
     public function index() {
         // Khởi tạo đối tượng SongController và lấy dữ liệu top bài hát
-        $songController = new SongController($this->db);
-        $topSongs = $songController->getTopSongsData(); // Lấy dữ liệu từ phương thức trong SongController
+        // $songController = new SongController($this->db);
+        // $topSongs = $songController->getTopSongsData(); // Lấy dữ liệu từ phương thức trong SongController
 
         // Bao gồm view để hiển thị
         include 'views/home/index.php';

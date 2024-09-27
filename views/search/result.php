@@ -22,7 +22,7 @@
                             <img src="assets/images/songs/<?php echo htmlspecialchars($song['hinhanh']); ?>" alt="<?php echo htmlspecialchars($song['ten_bhat']); ?>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title text-center">
-                                    <a href="views/details/detail.php?id=<?php echo $song['ma_bviet']; ?>" class="text-decoration-none"><?php echo htmlspecialchars($song['ten_bhat']); ?></a>
+                                    <a href="detail.php?id=<?php echo $song['ma_bviet']; ?>" class="text-decoration-none"><?php echo htmlspecialchars($song['ten_bhat']); ?></a>
                                 </h5>
                             </div>
                         </div>
